@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "sdk": "google-genai",
+  "sdk_runtime_version": null,
+  "system_message": null,
+  "content_order": [
+    "audio part",
+    "user prompt"
+  ],
+  "prompts": {
+    "direct": "Transcribe this audio verbatim. The speaker may switch between Arabic and English inside the same sentence. Preserve code-switching, named entities, abbreviations, and casing when clear. Return only the transcript.",
+    "structured_language_spans": "Transcribe the audio into JSON. First provide the analysis fields: dominant dialect, languages present, and contiguous language spans. Put the final verbatim transcript in the `transcript` field last. Each span should keep the spoken surface form and include its language and script."
+  },
+  "structured_schema": {
+    "type": "object",
+    "properties": {
+      "dominant_dialect": {
+        "type": "string"
+      },
+      "languages_present": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "language_spans": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "script": {
+              "type": "string"
+            },
+            "normalized_form": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "language"
+          ]
+        }
+      },
+      "transcript": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "dominant_dialect",
+      "languages_present",
+      "language_spans",
+      "transcript"
+    ]
+  },
+  "generation": {
+    "temperature": 0.0,
+    "top_p": null,
+    "top_p_note": "unset; provider default",
+    "maximum_output_tokens": 8192,
+    "structured_rescue_maximum_output_tokens": 16384,
+    "structured_rescue_requests": 5,
+    "response_mime_type": "application/json for structured requests"
+  },
+  "models": {
+    "gemini-3-flash-preview": {
+      "stored_request_window": "2026-04-28/2026-05-17",
+      "requested_thinking_budgets": [
+        0,
+        5000
+      ]
+    },
+    "gemini-3.1-pro-preview": {
+      "stored_request_window": "2026-05-17/2026-05-18",
+      "requested_thinking_budgets": [
+        5000
+      ],
+      "unavailable_condition": "The endpoint rejected the requested zero-thinking condition."
+    }
+  },
+  "extraction": {
+    "direct": "response text",
+    "structured": "transcript field only",
+    "failed_or_empty": "blank hypothesis retained as deletion errors; coverage reported separately"
+  },
+  "availability": {
+    "flash_structured_thinking_on": "incomplete stored sweep; omitted from manuscript",
+    "pro_structured_thinking_on": "three residual failures retained as blanks; coverage 1821/1824"
+  }
+}

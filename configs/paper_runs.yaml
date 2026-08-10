@@ -1,0 +1,125 @@
+schema_version: 1
+manuscript_title: "Source-Aware Synthetic Augmentation and GRPO Output Contracts for Arabic–English Code-Switched ASR"
+base_model: Qwen/Qwen3-ASR-1.7B
+hardware: "1 x NVIDIA GeForce RTX 4060 Laptop GPU (8 GB)"
+software:
+  unsloth: 2026.3.3
+  transformers: 4.57.6
+  torch: 2.9.1+cu128
+
+common_adapter:
+  quantization: 4-bit
+  autocast: bfloat16
+  rank: 64
+  alpha: 64
+  dropout: 0.0
+  freeze_audio_tower: true
+  target_modules: "non-audio q/k/v/o and gate/up/down projections (196 instances)"
+
+common_optimizer:
+  name: AdamW8bit
+  betas: [0.9, 0.99]
+  weight_decay: 0.1
+  scheduler: cosine
+  eta_min_fraction_of_lr: 0.1
+  warmup_steps: 0
+
+sft:
+  human_only:
+    train_manifest: qwen3asr_data/canonical_v1/human_train_v1.jsonl
+    training_rows: 6898
+    epochs: 5
+    optimizer_steps: 1080
+    microbatch: 2
+    gradient_accumulation: 16
+    effective_batch: 32
+    learning_rate: 5.0e-6
+    max_gradient_norm: 0.1
+    selected_checkpoint: final adapter after epoch 5
+  human_plus_synthetic:
+    train_manifest: qwen3asr_data/canonical_v1/train_combined_v1.jsonl
+    training_rows: 15553
+    epochs: 5
+    optimizer_steps: 2435
+    microbatch: 2
+    gradient_accumulation: 16
+    effective_batch: 32
+    learning_rate: 5.0e-6
+    max_gradient_norm: 0.1
+    selected_checkpoint: step 700
+    selection_rule: lowest nWER in the human_valid_v1 checkpoint sweep
+  target_contract: "language Arabic English<asr_text>{transcript}"
+  evaluation:
+    decoding: greedy
+    temperature: 0.0
+    beams: 1
+    maximum_tokens: 128
+  random_seed: null
+  seed_note: no explicit training seed was recorded
+
+grpo_common:
+  train_manifest: qwen3asr_data/canonical_v1/train_combined_v1.jsonl
+  policy_loop: custom single-GPU GRPO
+  sampling_temperature: 1.0
+  top_p: 0.95
+  gradient_accumulation: 2
+  reference_policy: null
+  kl_coefficient: 0.0
+  kl_schedule: null
+  random_seed: null
+  seed_note: no explicit training seed was recorded
+
+grpo_runs:
+  normalized_control:
+    initialization: mixed SFT step 700
+    maximum_steps: 250
+    generations_per_audio: 32
+    forward_batch: 8
+    learning_rate: 5.0e-6
+    maximum_completion_tokens: 128
+    maximum_gradient_norm: 0.1
+    adapter_sync_interval: 50
+    reward: normalized WER/CER plus non-empty bonus
+    advantage: group standardization
+    supervised_anchor_weight: 0.0
+    manuscript_use: control trajectory; step 50 initializes plain GRPO
+  plain_grpo:
+    initialization: normalized-control step 50
+    maximum_steps: 250
+    generations_per_audio: 32
+    forward_batch: 8
+    learning_rate: 5.0e-6
+    maximum_completion_tokens: 128
+    maximum_gradient_norm: 0.1
+    adapter_sync_interval: 10
+    reward: bounded signed nWER/nCER plus +/-0.5 empty-or-repetition quality term
+    advantage: group standardization with 1.0e-4 denominator epsilon
+    supervised_anchor_weight: 0.0
+    selected_checkpoint: final / step 250
+  structured_grpo:
+    initialization: structured SFT step 900
+    maximum_steps: 250
+    generations_per_audio: 16
+    forward_batch: 2
+    learning_rate: 2.0e-6
+    maximum_completion_tokens: 192
+    maximum_gradient_norm: 0.1
+    adapter_sync_interval: 10
+    reward: signed ASR plus strict JSON-contract rewards
+    advantage: group standardization with 1.0e-4 denominator epsilon
+    supervised_anchor_weight: 0.10
+    selected_checkpoint: step 200
+  thinking_only_grpo:
+    initialization: thinking warm-start step 70
+    observed_horizon: 370
+    generations_per_audio: 32
+    forward_batch: 8
+    learning_rate: 5.0e-7
+    maximum_completion_tokens: 256
+    maximum_gradient_norm: 0.5
+    adapter_sync_interval: 10
+    reward: signed ASR plus tag, length, script, and curriculum rewards
+    curriculum_offset: 70
+    advantage: group standardization with 1.0e-4 denominator epsilon
+    supervised_anchor_weight: 0.05
+    selected_checkpoint: step 190

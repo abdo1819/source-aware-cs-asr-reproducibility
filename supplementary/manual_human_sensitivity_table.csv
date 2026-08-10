@@ -1,0 +1,15 @@
+rank,system,family,n,coverage_n,coverage_pct,nwer_pct,ncer_pct,en_wer_pct,empty_pct,source_artifact
+1,"Gemini Pro (direct, thinking on)",Gemini API reference,347,347,100.00,19.57,10.35,25.50,0.29,analysis/gemini_canonical_eval/gemini-3.1-pro-preview_test_v1_retry_summary.json
+2,"Gemini Pro (structured, thinking on)",Gemini API reference,347,346,99.71,27.95,17.61,55.57,0.29,analysis/gemini_canonical_eval/gemini-3.1-pro-preview_test_v1_retry_summary.json
+3,"Gemini Flash (structured, thinking off)",Gemini API reference,347,347,100.00,31.85,19.88,51.81,0.00,analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json
+4,"Gemini Flash (direct, thinking on)",Gemini API reference,347,347,100.00,33.05,22.40,45.23,0.29,analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json
+5,AraZN Whisper Small,Fine-tuned Whisper,347,347,100.00,38.24,18.29,38.66,0.00,analysis/arazn_whisper_small_test_v1_full.json
+6,Plain GRPO,Fine-tuned Qwen3-ASR,347,347,100.00,40.05,20.52,40.54,0.00,experiments/07_grpo_from_norm50_reward_fix/eval/eval_final_test_v1_post250.json
+7,AraZN Whisper Medium,Fine-tuned Whisper,347,347,100.00,41.75,21.87,40.94,0.00,analysis/arazn_whisper_medium_test_v1_full.json
+8,Human+synthetic SFT,Fine-tuned Qwen3-ASR,347,347,100.00,46.18,28.75,51.81,0.00,experiments/s02_sft_canonical_v1/eval/eval_s02_sft_canonical_v1_test_v1.json
+9,Human-only SFT,Fine-tuned Qwen3-ASR,347,347,100.00,46.70,27.82,45.10,0.00,experiments/s05_sft_canonical_v1_human_only/eval/eval_test_v1.json
+10,Structured GRPO,Fine-tuned Qwen3-ASR,347,347,100.00,48.90,32.54,55.70,2.88,experiments/10_grpo_structured_reduced_from_s08_ckpt900/eval/eval_10_grpo_structured_reduced_checkpoint-200_checkpoint-200.json
+11,Base 4-bit Qwen3-ASR,Zero-shot baseline,347,347,100.00,54.22,33.60,85.50,0.00,experiments/06_grpo_from_sft700_norm_control/eval_test/eval_00_base_4bit_test_v1.json
+12,Thinking-only GRPO,Fine-tuned Qwen3-ASR,347,347,100.00,57.52,37.65,85.37,2.59,experiments/24_grpo_thinking_joint_v4/eval/eval_24_grpo_thinking_joint_v4_checkpoint-190.json
+13,Whisper large-v3,Zero-shot baseline,347,347,100.00,66.89,46.50,109.13,0.00,analysis/whisper_large_v3_test_v1_full.json
+14,"Gemini Flash (direct, thinking off)",Gemini API reference,347,347,100.00,175.64,157.04,68.99,0.29,analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json

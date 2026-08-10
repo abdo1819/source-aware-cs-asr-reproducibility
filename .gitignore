@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.wav
+*.flac
+*.mp3
+*.sqlite3
+*.db
+*.safetensors
+*.pt
+*.pth
+checkpoints/
+predictions/
+.env
+.env.*

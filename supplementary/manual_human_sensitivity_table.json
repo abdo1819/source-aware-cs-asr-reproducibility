@@ -1,0 +1,479 @@
+{
+  "selection": {
+    "human_test_n": 862,
+    "manual_keep_n": 347,
+    "gemini_keep_excluded_n": 515,
+    "decision_status_counts": {
+      "gemini_keep": 515,
+      "keep": 347
+    },
+    "inclusion_rule": "Row is in canonical human_test_v1 and its matching review_state decision has status exactly 'keep'. Rows with 'gemini_keep' are excluded.",
+    "join_key": "last two normalized audio-path components",
+    "selected_id_sha256": "a8bb30b9488bcc3014c73929eb23631a9de5c692c748709d7d6a09d1c1ddd38b"
+  },
+  "scoring": {
+    "aggregation": "corpus-level edit distance",
+    "normalizer": "asr_utils.normalize_for_alignment",
+    "english_projection": "asr_utils.extract_english_tokens",
+    "blank_policy": "blank hypotheses retained as deletion errors",
+    "inference_performed": false
+  },
+  "availability_notes": [
+    "Gemini Flash structured/thinking-on omitted because its stored sweep is incomplete and it is omitted from the manuscript table.",
+    "Gemini Pro zero-thinking conditions unavailable because the endpoint rejected zero thinking budget."
+  ],
+  "inputs": {
+    "analysis/arazn_whisper_medium_test_v1_full.json": {
+      "sha256": "fe224a5b83abd564c1ad585123b972593788d4d103c1aa22e6472012ed890725",
+      "bytes": 1223735
+    },
+    "analysis/arazn_whisper_small_test_v1_full.json": {
+      "sha256": "ad8f3d4c3e6ed6458e2941c37e02ed1ac31499bb933df4aa80c8a18071c35093",
+      "bytes": 1216938
+    },
+    "analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json": {
+      "sha256": "61f4ad9b0fae8c037a44d3eaf21447c0e3da1ec6ffdc1595bb79bb1ca6301f57",
+      "bytes": 8350140
+    },
+    "analysis/gemini_canonical_eval/gemini-3.1-pro-preview_test_v1_retry_summary.json": {
+      "sha256": "03c32d6613239c5c3982fbd79cc29a77b5d4e453eb04750516ce5137f6237016",
+      "bytes": 3918
+    },
+    "analysis/whisper_large_v3_test_v1_full.json": {
+      "sha256": "5aabe77905762ae873ae694996e698c9823435c3837a25fd38ca4f17901b9e0e",
+      "bytes": 1210008
+    },
+    "data_review/train_full/review_state.json": {
+      "sha256": "9a95f2c30618477a7700c521e70a6cc72c117e9a7845a9d6d65fe18b8bfccd9d",
+      "bytes": 7698740
+    },
+    "experiments/06_grpo_from_sft700_norm_control/eval_test/eval_00_base_4bit_test_v1.json": {
+      "sha256": "1931686d5a168928625b11f8e335281d4979a8150f75395b094d7b09b28cd449",
+      "bytes": 1266196
+    },
+    "experiments/07_grpo_from_norm50_reward_fix/eval/eval_final_test_v1_post250.json": {
+      "sha256": "1b01d5a0fe6acd9a805ab00fd41f5c167be4d88715ed2622a82f50233f89486c",
+      "bytes": 1488200
+    },
+    "experiments/10_grpo_structured_reduced_from_s08_ckpt900/eval/eval_10_grpo_structured_reduced_checkpoint-200_checkpoint-200.json": {
+      "sha256": "bd0041199c92b2b81bad33fe0ba756a247bdfb2b0279473ad0c0936c35f93d82",
+      "bytes": 1967841
+    },
+    "experiments/24_grpo_thinking_joint_v4/eval/eval_24_grpo_thinking_joint_v4_checkpoint-190.json": {
+      "sha256": "6dd007fef276181dae7b23ad0d9620c259a251bae4b0e135eb879344fbdf3dc7",
+      "bytes": 1656226
+    },
+    "experiments/s02_sft_canonical_v1/eval/eval_s02_sft_canonical_v1_test_v1.json": {
+      "sha256": "1fd9f89e9c4600a6a4bdaf065e7780f28e54e8241557027de2cdb3264c5aa50d",
+      "bytes": 1279653
+    },
+    "experiments/s05_sft_canonical_v1_human_only/eval/eval_test_v1.json": {
+      "sha256": "dd8e02c0acec3bb51c2d3ef6c708a424b457bacefb8d14eb1e1353d9bc891a6a",
+      "bytes": 1516415
+    },
+    "generative_model_capability/cache/gemini_31_pro_direct_thinking_retry.sqlite3": {
+      "sha256": "34f378413ac84ce031c22f6c8fbccc5c1aff36acb04728a285cd6e99971728c6",
+      "bytes": 5369856
+    },
+    "generative_model_capability/cache/gemini_31_pro_structured_thinking_retry.sqlite3": {
+      "sha256": "0c9df7944237e451398c19a0d28e21cdc1d1b706cb6468fc5fb668e7de36e518",
+      "bytes": 9461760
+    },
+    "generative_model_capability/cache/gemini_31_pro_structured_thinking_retry_5_high_tokens.sqlite3": {
+      "sha256": "da592a8da9788b42d165d40dbb177a653b5f04e6c5953713dc5ef58a3702c8a7",
+      "bytes": 65536
+    },
+    "generative_model_capability/cache/gemini_batch_cache.sqlite3": {
+      "sha256": "d35e4361194e3f8ccefb9a8be87aa290a30d6a14391e7dadebc6f20cb776b43d",
+      "bytes": 215138304
+    },
+    "qwen3asr_data/canonical_v1/human_test_v1.jsonl": {
+      "sha256": "1745a3412d5323ee5981a990c77d0b69903f9b6e5e8da8709ab5e21a6cfb382c",
+      "bytes": 286306
+    }
+  },
+  "diagnostics": {
+    "Base 4-bit Qwen3-ASR": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Whisper large-v3": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "AraZN Whisper Small": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "AraZN Whisper Medium": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Human-only SFT": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Human+synthetic SFT": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Plain GRPO": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Structured GRPO": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Thinking-only GRPO": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Gemini Flash (direct, thinking off)": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Gemini Flash (direct, thinking on)": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Gemini Flash (structured, thinking off)": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Gemini Pro (direct, thinking on)": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 347
+    },
+    "Gemini Pro (structured, thinking on)": {
+      "stored_prediction_records": 1824,
+      "selected_records": 347,
+      "n_english": 308,
+      "coverage_n": 346
+    }
+  },
+  "validation_against_manuscript_human_columns": {
+    "Base 4-bit Qwen3-ASR": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 45.28387038541384,
+      "manuscript_nwer_pct": 45.28,
+      "computed_en_wer_pct": 78.29414980863861,
+      "manuscript_en_wer_pct": 78.29,
+      "matches_at_two_decimals": true
+    },
+    "Whisper large-v3": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 54.76126004151999,
+      "manuscript_nwer_pct": 54.76,
+      "computed_en_wer_pct": 89.55713504647348,
+      "manuscript_en_wer_pct": 89.56,
+      "matches_at_two_decimals": true
+    },
+    "AraZN Whisper Small": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 31.4107771459518,
+      "manuscript_nwer_pct": 31.41,
+      "computed_en_wer_pct": 29.360306178239476,
+      "manuscript_en_wer_pct": 29.36,
+      "matches_at_two_decimals": true
+    },
+    "AraZN Whisper Medium": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 37.629749977434784,
+      "manuscript_nwer_pct": 37.63,
+      "computed_en_wer_pct": 32.476763258611264,
+      "manuscript_en_wer_pct": 32.48,
+      "matches_at_two_decimals": true
+    },
+    "Human-only SFT": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 35.98700243704305,
+      "manuscript_nwer_pct": 35.99,
+      "computed_en_wer_pct": 37.17878622197922,
+      "manuscript_en_wer_pct": 37.18,
+      "matches_at_two_decimals": true
+    },
+    "Human+synthetic SFT": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 38.505280259951256,
+      "manuscript_nwer_pct": 38.51,
+      "computed_en_wer_pct": 38.92837616183707,
+      "manuscript_en_wer_pct": 38.93,
+      "matches_at_two_decimals": true
+    },
+    "Plain GRPO": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 32.31338568462858,
+      "manuscript_nwer_pct": 32.31,
+      "computed_en_wer_pct": 32.20338983050847,
+      "manuscript_en_wer_pct": 32.2,
+      "matches_at_two_decimals": true
+    },
+    "Structured GRPO": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 39.34470620092066,
+      "manuscript_nwer_pct": 39.34,
+      "computed_en_wer_pct": 47.45762711864407,
+      "manuscript_en_wer_pct": 47.46,
+      "matches_at_two_decimals": true
+    },
+    "Thinking-only GRPO": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 46.77317447423053,
+      "manuscript_nwer_pct": 46.77,
+      "computed_en_wer_pct": 79.05959540732641,
+      "manuscript_en_wer_pct": 79.06,
+      "matches_at_two_decimals": true
+    },
+    "Gemini Flash (direct, thinking off)": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 104.1158949363661,
+      "manuscript_nwer_pct": 104.12,
+      "computed_en_wer_pct": 44.395844723892836,
+      "manuscript_en_wer_pct": 44.4,
+      "matches_at_two_decimals": true
+    },
+    "Gemini Flash (direct, thinking on)": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 18.386135932845924,
+      "manuscript_nwer_pct": 18.39,
+      "computed_en_wer_pct": 27.99343903772553,
+      "manuscript_en_wer_pct": 27.99,
+      "matches_at_two_decimals": true
+    },
+    "Gemini Flash (structured, thinking off)": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 13.304449860095676,
+      "manuscript_nwer_pct": 13.3,
+      "computed_en_wer_pct": 25.20503007107709,
+      "manuscript_en_wer_pct": 25.21,
+      "matches_at_two_decimals": true
+    },
+    "Gemini Pro (direct, thinking on)": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 12.230345699070314,
+      "manuscript_nwer_pct": 12.23,
+      "computed_en_wer_pct": 16.621104428649534,
+      "manuscript_en_wer_pct": 16.62,
+      "matches_at_two_decimals": true
+    },
+    "Gemini Pro (structured, thinking on)": {
+      "human_test_n": 862,
+      "computed_nwer_pct": 18.28684899359148,
+      "manuscript_nwer_pct": 18.29,
+      "computed_en_wer_pct": 44.12247129579005,
+      "manuscript_en_wer_pct": 44.12,
+      "matches_at_two_decimals": true
+    }
+  },
+  "results": [
+    {
+      "rank": 1,
+      "system": "Gemini Pro (direct, thinking on)",
+      "family": "Gemini API reference",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 19.565217391304348,
+      "ncer_pct": 10.351532518037148,
+      "en_wer_pct": 25.503355704697988,
+      "empty_pct": 0.2881844380403458,
+      "source_artifact": "analysis/gemini_canonical_eval/gemini-3.1-pro-preview_test_v1_retry_summary.json"
+    },
+    {
+      "rank": 2,
+      "system": "Gemini Pro (structured, thinking on)",
+      "family": "Gemini API reference",
+      "n": 347,
+      "coverage_n": 346,
+      "coverage_pct": 99.71181556195965,
+      "nwer_pct": 27.94656888423258,
+      "ncer_pct": 17.60732743181702,
+      "en_wer_pct": 55.57046979865772,
+      "empty_pct": 0.2881844380403458,
+      "source_artifact": "analysis/gemini_canonical_eval/gemini-3.1-pro-preview_test_v1_retry_summary.json"
+    },
+    {
+      "rank": 3,
+      "system": "Gemini Flash (structured, thinking off)",
+      "family": "Gemini API reference",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 31.849135673127293,
+      "ncer_pct": 19.879240648825665,
+      "en_wer_pct": 51.81208053691275,
+      "empty_pct": 0.0,
+      "source_artifact": "analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json"
+    },
+    {
+      "rank": 4,
+      "system": "Gemini Flash (direct, thinking on)",
+      "family": "Gemini API reference",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 33.05395495023573,
+      "ncer_pct": 22.396766105510924,
+      "en_wer_pct": 45.234899328859065,
+      "empty_pct": 0.2881844380403458,
+      "source_artifact": "analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json"
+    },
+    {
+      "rank": 5,
+      "system": "AraZN Whisper Small",
+      "family": "Fine-tuned Whisper",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 38.239916186485075,
+      "ncer_pct": 18.292994934247556,
+      "en_wer_pct": 38.65771812080537,
+      "empty_pct": 0.0,
+      "source_artifact": "analysis/arazn_whisper_small_test_v1_full.json"
+    },
+    {
+      "rank": 6,
+      "system": "Plain GRPO",
+      "family": "Fine-tuned Qwen3-ASR",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 40.04714510214772,
+      "ncer_pct": 20.51885585631684,
+      "en_wer_pct": 40.53691275167785,
+      "empty_pct": 0.0,
+      "source_artifact": "experiments/07_grpo_from_norm50_reward_fix/eval/eval_final_test_v1_post250.json"
+    },
+    {
+      "rank": 7,
+      "system": "AraZN Whisper Medium",
+      "family": "Fine-tuned Whisper",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 41.74960712414877,
+      "ncer_pct": 21.869723174538198,
+      "en_wer_pct": 40.939597315436245,
+      "empty_pct": 0.0,
+      "source_artifact": "analysis/arazn_whisper_medium_test_v1_full.json"
+    },
+    {
+      "rank": 8,
+      "system": "Human+synthetic SFT",
+      "family": "Fine-tuned Qwen3-ASR",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 46.176008381351494,
+      "ncer_pct": 28.75198280714322,
+      "en_wer_pct": 51.81208053691275,
+      "empty_pct": 0.0,
+      "source_artifact": "experiments/s02_sft_canonical_v1/eval/eval_s02_sft_canonical_v1_test_v1.json"
+    },
+    {
+      "rank": 9,
+      "system": "Human-only SFT",
+      "family": "Fine-tuned Qwen3-ASR",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 46.699842849659504,
+      "ncer_pct": 27.815586143376148,
+      "en_wer_pct": 45.100671140939596,
+      "empty_pct": 0.0,
+      "source_artifact": "experiments/s05_sft_canonical_v1_human_only/eval/eval_test_v1.json"
+    },
+    {
+      "rank": 10,
+      "system": "Structured GRPO",
+      "family": "Fine-tuned Qwen3-ASR",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 48.89994761655317,
+      "ncer_pct": 32.543621757150895,
+      "en_wer_pct": 55.70469798657718,
+      "empty_pct": 2.881844380403458,
+      "source_artifact": "experiments/10_grpo_structured_reduced_from_s08_ckpt900/eval/eval_10_grpo_structured_reduced_checkpoint-200_checkpoint-200.json"
+    },
+    {
+      "rank": 11,
+      "system": "Base 4-bit Qwen3-ASR",
+      "family": "Zero-shot baseline",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 54.21686746987952,
+      "ncer_pct": 33.597707619096354,
+      "en_wer_pct": 85.503355704698,
+      "empty_pct": 0.0,
+      "source_artifact": "experiments/06_grpo_from_sft700_norm_control/eval_test/eval_00_base_4bit_test_v1.json"
+    },
+    {
+      "rank": 12,
+      "system": "Thinking-only GRPO",
+      "family": "Fine-tuned Qwen3-ASR",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 57.51702462022001,
+      "ncer_pct": 37.6451926521005,
+      "en_wer_pct": 85.36912751677852,
+      "empty_pct": 2.5936599423631126,
+      "source_artifact": "experiments/24_grpo_thinking_joint_v4/eval/eval_24_grpo_thinking_joint_v4_checkpoint-190.json"
+    },
+    {
+      "rank": 13,
+      "system": "Whisper large-v3",
+      "family": "Zero-shot baseline",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 66.89366160293348,
+      "ncer_pct": 46.50258404543827,
+      "en_wer_pct": 109.12751677852349,
+      "empty_pct": 0.0,
+      "source_artifact": "analysis/whisper_large_v3_test_v1_full.json"
+    },
+    {
+      "rank": 14,
+      "system": "Gemini Flash (direct, thinking off)",
+      "family": "Gemini API reference",
+      "n": 347,
+      "coverage_n": 347,
+      "coverage_pct": 100.0,
+      "nwer_pct": 175.64169722367734,
+      "ncer_pct": 157.03832574323286,
+      "en_wer_pct": 68.99328859060402,
+      "empty_pct": 0.2881844380403458,
+      "source_artifact": "analysis/gemini_canonical_eval/gemini-3-flash-preview_test_v1.json"
+    }
+  ]
+}
