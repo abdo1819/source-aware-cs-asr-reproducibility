@@ -1,6 +1,6 @@
 # Source-Aware Arabic–English Code-Switched ASR: Reproducibility Package
 
-This is the minimal public companion for **“Source-Aware Synthetic Augmentation and GRPO Output Contracts for Arabic–English Code-Switched ASR.”** It freezes the paper-facing configuration, transcript extraction and normalization rules, evaluation entry point, Gemini request protocol, and aggregate supplementary sensitivity results.
+This is the minimal public companion for **“Source-Aware Evaluation of Synthetic Speech Augmentation and GRPO Output Contracts for Arabic–English Code-Switched ASR.”** It freezes the paper-facing configuration, transcript extraction and normalization rules, evaluation entry point, Gemini request protocol, and aggregate supplementary sensitivity results.
 
 ## Included
 

@@ -1,5 +1,5 @@
 schema_version: 1
-manuscript_title: "Source-Aware Synthetic Augmentation and GRPO Output Contracts for Arabic–English Code-Switched ASR"
+manuscript_title: "Source-Aware Evaluation of Synthetic Speech Augmentation and GRPO Output Contracts for Arabic–English Code-Switched ASR"
 base_model: Qwen/Qwen3-ASR-1.7B
 hardware: "1 x NVIDIA GeForce RTX 4060 Laptop GPU (8 GB)"
 software:
